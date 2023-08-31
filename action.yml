@@ -23,6 +23,15 @@ runs:
   steps:
     - run: |
         echo "x: '${{ inputs.PR_title }}'"
+
+        ## Handle empty commit messages (as commits require messages)
+        msg=${{ inputs.PR_title }}
+        if [ -z "$your_variable" ]; then
+          msg="Review changes in $(git status --porcelain | grep '^[AM]\s' | wc -l) files."
+        fi
+
+        echo "xx: $msg"
+
       shell: bash
     # - run: |
     #     ## 🚀🚀🚀
