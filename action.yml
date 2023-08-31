@@ -1,4 +1,4 @@
-name: Create pull request
+name: Quick PR
 description: Simple GH Action to create a PR for single-commit changes
 author: Nicholas Valentinus
 branding:
