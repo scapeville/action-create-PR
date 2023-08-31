@@ -15,7 +15,7 @@ inputs:
     required: false
     default: ${{ github.actor }}@users.noreply.github.com
   PR_title:
-    description: the commit message, which is also the PR title
+    description: The commit message, which is also the PR title, should not be left empty.
     required: false
     default: Committed by action-create-PR.
 
@@ -38,7 +38,7 @@ runs:
         git checkout -b $branch
 
         git add .
-        git commit -m "${{ inputs.commit_msg }}"
+        git commit -m "${{ inputs.PR_title }}"
 
         git push origin $branch
 
