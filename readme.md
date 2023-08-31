@@ -7,6 +7,9 @@
 
 ## Usage
 
+> **NOTE**
+In order for GitHub Actions to be able to create a pull request, check the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/OWNER/REPO/settings/actions .
+
 ```yml
 jobs:
   ...:
