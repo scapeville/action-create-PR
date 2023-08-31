@@ -43,11 +43,15 @@ runs:
         git commit -m "foo bar baz"
         echo "::endgroup::"
 
+        echo "DEBUG: last exit code: $?"
+
         ## Handle the case where users didn't make any changes
         if [ $? -eq 1 ]; then
           echo "ERROR: Oops! You need to make some changes before creating a pull request."
           exit 1
         fi
+
+        exit 69
 
         echo "::group::DEBUG: do  git push origin <branch>"
         git push origin $branch
