@@ -15,37 +15,39 @@ inputs:
     required: false
     default: ${{ github.actor }}@users.noreply.github.com
   PR_title:
-    description: The commit message, which is also the PR title, should not be left empty.
+    description: The commit message, which is also the PR title.
     required: false
-    default: Committed by action-create-PR.
 
 runs:
   using: 'composite'
   steps:
     - run: |
-        ## 🚀🚀🚀
-        set +e  # This lets us handle non-zero exits
-
-        if [ -z "$(git status --porcelain)" ]; then
-          echo "ERROR: Oops! You need to make some changes before creating a pull request."
-          exit 1
-        fi
-
-        git config user.name "${{ inputs.git_name }}"
-        git config user.email "${{ inputs.git_email }}"
-
-        branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
-        git checkout -b $branch
-
-        git add .
-        git commit -m "${{ inputs.PR_title }}"
-
-        git push origin $branch
-
-        ## TODO: Find a way so users don't have to check the box in order to use this action
-        gh pr create -f
-        if [ $? -eq 1 ]; then
-          echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
-          exit 1
-        fi
+        echo "x: '${{ inputs.PR_title }}'"
       shell: bash
+    # - run: |
+    #     ## 🚀🚀🚀
+    #     set +e  # This lets us handle non-zero exits
+
+    #     if [ -z "$(git status --porcelain)" ]; then
+    #       echo "ERROR: Oops! You need to make some changes before creating a pull request."
+    #       exit 1
+    #     fi
+
+    #     git config user.name "${{ inputs.git_name }}"
+    #     git config user.email "${{ inputs.git_email }}"
+
+    #     branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
+    #     git checkout -b $branch
+
+    #     git add .
+    #     git commit -m "${{ inputs.PR_title }}"
+
+    #     git push origin $branch
+
+    #     ## TODO: Find a way so users don't have to check the box in order to use this action
+    #     gh pr create -f
+    #     if [ $? -eq 1 ]; then
+    #       echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
+    #       exit 1
+    #     fi
+    #   shell: bash
