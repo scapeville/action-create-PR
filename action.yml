@@ -29,13 +29,19 @@ runs:
 
         echo "DEBUG: branch: $branch"
 
-        git checkout -b $branch -q  # dev-docs: -q to make it quiet
+        echo "::group::DEBUG: do  git checkout"
+        # git checkout -b $branch -q  # dev-docs: -q to make it quiet
+        git checkout -b $branch
+        echo "::endgroup::"
 
         git config user.name "${{ inputs.git_name }}"
         git config user.email "${{ inputs.git_email }}"
         
+        echo "::group::DEBUG: do git add & commit"
         git add .
-        git commit -m "foo bar baz" -q
+        # git commit -m "foo bar baz" -q
+        git commit -m "foo bar baz"
+        echo "::endgroup::"
 
         ## Handle the case where users didn't make any changes
         if [ $? -eq 1 ]; then
