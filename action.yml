@@ -17,9 +17,10 @@ runs:
   using: 'composite'
   steps:
     - run: |
+        ## 🚀🚀🚀
         set +e
 
-        if git diff --exit-code --quiet; then
+        if [ -z "$(git status --porcelain)" ]; then
           echo "ERROR: Oops! You need to make some changes before creating a pull request."
           exit 1
         fi
