@@ -14,9 +14,18 @@ runs:
   using: 'composite'
   steps:
     - run: |
+        ## dev-docs: i think it would be better to use a date format instead of a random hex as a UID
+        # uid=$(openssl rand -hex 3)  # Random hex (6 chars)
+        uid=$(date +'%Y%m%d_%H%M%S')
+
+        branch="action-create-PR-$uid"
+
+        git checkout -b $branch
         
-        uid=$(openssl rand -hex 3)  # Random hex (6 chars)
-        
-        git checkout -b action-create-PR-$uid
-        git branch
+        git add .
+        git commit -m "foo bar baz"
+
+        git push origin $branch
+
+        gh pr create -f
       shell: bash
