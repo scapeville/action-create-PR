@@ -27,6 +27,8 @@ runs:
 
         branch="action-create-PR-$uid"
 
+        echo "DEBUG: branch: $branch"
+
         git checkout -b $branch -q  # dev-docs: -q to make it quiet
 
         git config user.name "${{ inputs.git_name }}"
