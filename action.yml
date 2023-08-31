@@ -1,5 +1,5 @@
 name: Create PR
-description: foo
+description: Simple GH Action to create a PR for single-commit changes
 author: Nicholas Valentinus
 branding:
   icon: tool
@@ -48,7 +48,7 @@ runs:
 
         git push origin $branch
 
-        ## TODO: Find a way so users don't have to check the box in order to use this action
+        ## TODO: Find a way for users to use this action without manually checking the checkbox in settings
         gh pr create -f
         if [ $? -eq 1 ]; then
           echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."

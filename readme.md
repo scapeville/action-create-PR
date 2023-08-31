@@ -1,22 +1,11 @@
-## Motivation
-
-I want to check out my repo, make some changes (a single commit), and then create a PR for review.
-
 ## About
 
-this action provide a simple and 
+💡 Motivation: I want to check out my repo, make some changes (a single commit), and then create a PR for review.
+
+❓ Purpose: This action handles making a new branch, committing all the changes, and submitting the PR.
 
 
-the straightforward way making PR: 
-
-
-how to use:
-
-1. do actions/checkout@v3
-2. make all changes you want (but do NOT make commit)
-3. use this action to handle the: making new branch, committing, and submitting the PR.
-
-
+## Usage
 
 ```yml
 jobs:
@@ -28,11 +17,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: ...  # Make all your changes (but don't make commits)
-      - uses: scapeville/action-create-PR@main
+      - uses: scapeville/action-create-PR@v1
         with:
-          git_name: testing action-create-PR
-          git_email: your@email
-          PR_title: foo bar
+          git_name: name    # Optional
+          git_email: email  # Optional
+          PR_title: title   # Optional
         env:
           GH_TOKEN: ${{ github.token }}
 ```
