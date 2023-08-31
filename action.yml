@@ -12,8 +12,8 @@ inputs:
   git_email:
     description: 
     required: true
-  commit_msg:
-    description: 
+  PR_title:
+    description: the commit message, which is also the PR title
     required: false
     default: Committed by action-create-PR.
 
