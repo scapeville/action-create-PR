@@ -12,29 +12,31 @@ inputs:
   git_email:
     description: 
     required: true
+  commit_msg:
+    description: 
+    required: false
+    default: Committed by action-create-PR.
 
 runs:
   using: 'composite'
   steps:
     - run: |
         ## 🚀🚀🚀
-        set +e
+        set +e  # This lets us handle non-zero exits
 
         if [ -z "$(git status --porcelain)" ]; then
           echo "ERROR: Oops! You need to make some changes before creating a pull request."
           exit 1
         fi
 
-        exit 69
-
         git config user.name "${{ inputs.git_name }}"
         git config user.email "${{ inputs.git_email }}"
 
         branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
-        git checkout -b $branch -q
+        git checkout -b $branch
 
         git add .
-        git commit -m "foo bar baz" -q
+        git commit -m "${{ inputs.commit_msg }}"
 
         git push origin $branch
 
@@ -45,3 +47,7 @@ runs:
           exit 1
         fi
       shell: bash
+
+
+
+## dev-docs: better not make the commands quiet to make debugging easier
