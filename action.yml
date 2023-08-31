@@ -57,9 +57,7 @@ runs:
         echo "::group::DEBUG: do  gh pr create -f"
         gh pr create -f
         if [ $? -eq 1 ]; then
-          echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking \
-          the checkbox 'Allow GitHub Actions to create and approve pull requests' \
-          at https://github.com/OWNER/REPO/settings/actions."
+          echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
           exit 1
         fi
         echo "::endgroup::"
