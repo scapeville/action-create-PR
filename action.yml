@@ -17,45 +17,30 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        
-        ## dev-docs: GitHub Action has `set -e` auto-enabled; below, we will disable that.
         set +e
 
-        ## dev-docs: i think it would be better to use a date format instead of a random hex as a UID
-        # uid=$(openssl rand -hex 3)  # Random hex (6 chars)
-        uid=$(date +'%Y%m%d_%H%M%S')
-
-        branch="action-create-PR-$uid"
-
-        echo "DEBUG: branch: $branch"
-
-        echo "::group::DEBUG: do  git checkout"
-        # git checkout -b $branch -q  # dev-docs: -q to make it quiet
-        git checkout -b $branch
-        echo "::endgroup::"
-
-        git config user.name "${{ inputs.git_name }}"
-        git config user.email "${{ inputs.git_email }}"
-        
-        echo "::group::DEBUG: do git add & commit"
-        git add .
-        # git commit -m "foo bar baz" -q
-        git commit -m "foo bar baz"
-        echo "::endgroup::"
-
+        if git diff --exit-code --quiet; then
+          echo "ERROR: Oops! You need to make some changes before creating a pull request."
+          exit 1
+        fi
 
         exit 69
 
-        echo "::group::DEBUG: do  git push origin <branch>"
+        git config user.name "${{ inputs.git_name }}"
+        git config user.email "${{ inputs.git_email }}"
+
+        branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
+        git checkout -b $branch -q
+
+        git add .
+        git commit -m "foo bar baz" -q
+
         git push origin $branch
-        echo "::endgroup::"
 
         ## TODO: Find a way so users don't have to check the box in order to use this action
-        echo "::group::DEBUG: do  gh pr create -f"
         gh pr create -f
         if [ $? -eq 1 ]; then
           echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
           exit 1
         fi
-        echo "::endgroup::"
       shell: bash
