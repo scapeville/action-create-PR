@@ -9,10 +9,11 @@ inputs:
   git_name:
     description: 
     required: false
+    default: ${{ github.actor }}
   git_email:
     description: 
     required: false
-    default:
+    default: ${{ github.actor }}@users.noreply.github.com
   PR_title:
     description: the commit message, which is also the PR title
     required: false
