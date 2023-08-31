@@ -14,7 +14,9 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        random_hex=$(openssl rand -hex 3)
-        echo "Random Hex: $random_hex"
-        # git checkout -b action-create-PR
+        
+        uid=$(openssl rand -hex 3)  # Random hex (6 chars)
+        
+        git checkout -b action-create-PR-$uid
+        git branch
       shell: bash
