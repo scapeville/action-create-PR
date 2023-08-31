@@ -17,6 +17,10 @@ runs:
   using: 'composite'
   steps:
     - run: |
+        
+        ## dev-docs: GitHub Action has `set -e` auto-enabled; below, we will disable that.
+        set +e
+
         ## dev-docs: i think it would be better to use a date format instead of a random hex as a UID
         # uid=$(openssl rand -hex 3)  # Random hex (6 chars)
         uid=$(date +'%Y%m%d_%H%M%S')
@@ -31,8 +35,10 @@ runs:
         git add .
         git commit -m "foo bar baz"
 
+        ## Handle the case where users didn't make any changes
         if [ $? -eq 1 ]; then
           echo "ERROR: Oops! You need to make some changes before creating a pull request."
+          exit 1
         fi
 
         git push origin $branch
