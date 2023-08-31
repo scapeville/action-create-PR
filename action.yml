@@ -1,10 +1,3 @@
-name: Quick PR
-description: Simple GH Action to create a PR for single-commit changes
-author: Nicholas Valentinus
-branding:
-  icon: cpu
-  color: orange
-
 inputs:
   git_name:
     description: The default value is your GitHub username.
@@ -55,3 +48,12 @@ runs:
           exit 1
         fi
       shell: bash
+
+
+## Metadata
+name: Quick PR
+description: Simple GH Action to create a PR for single-commit changes
+author: Nicholas Valentinus
+branding:
+  icon: cpu
+  color: orange
