@@ -7,11 +7,11 @@ branding:
 
 inputs:
   git_name:
-    description: 
+    description: The default value is your GitHub username.
     required: false
     default: ${{ github.actor }}
   git_email:
-    description: 
+    description: The default value is USERNAME@users.noreply.github.com .
     required: false
     default: ${{ github.actor }}@users.noreply.github.com
   PR_title:
@@ -23,33 +23,29 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        echo ${{ inputs.git_name }}
-        echo ${{ inputs.git_email }}
+        ## 🚀🚀🚀
+        set +e  # This lets us handle non-zero exits
+
+        if [ -z "$(git status --porcelain)" ]; then
+          echo "ERROR: Oops! You need to make some changes before creating a pull request."
+          exit 1
+        fi
+
+        git config user.name "${{ inputs.git_name }}"
+        git config user.email "${{ inputs.git_email }}"
+
+        branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
+        git checkout -b $branch
+
+        git add .
+        git commit -m "${{ inputs.commit_msg }}"
+
+        git push origin $branch
+
+        ## TODO: Find a way so users don't have to check the box in order to use this action
+        gh pr create -f
+        if [ $? -eq 1 ]; then
+          echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
+          exit 1
+        fi
       shell: bash
-    # - run: |
-    #     ## 🚀🚀🚀
-    #     set +e  # This lets us handle non-zero exits
-
-    #     if [ -z "$(git status --porcelain)" ]; then
-    #       echo "ERROR: Oops! You need to make some changes before creating a pull request."
-    #       exit 1
-    #     fi
-
-    #     git config user.name "${{ inputs.git_name }}"
-    #     git config user.email "${{ inputs.git_email }}"
-
-    #     branch="action-create-PR-$(date +'%Y%m%d_%H%M%S')"
-    #     git checkout -b $branch
-
-    #     git add .
-    #     git commit -m "${{ inputs.commit_msg }}"
-
-    #     git push origin $branch
-
-    #     ## TODO: Find a way so users don't have to check the box in order to use this action
-    #     gh pr create -f
-    #     if [ $? -eq 1 ]; then
-    #       echo "ERROR: Oops! You need to allow GitHub Actions to create a PR by checking the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/$GITHUB_REPOSITORY/settings/actions ."
-    #       exit 1
-    #     fi
-    #   shell: bash
