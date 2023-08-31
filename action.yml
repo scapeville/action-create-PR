@@ -27,13 +27,13 @@ runs:
 
         branch="action-create-PR-$uid"
 
-        git checkout -b $branch
+        git checkout -b $branch -q  # dev-docs: -q to make it quiet
 
         git config user.name "${{ inputs.git_name }}"
         git config user.email "${{ inputs.git_email }}"
         
         git add .
-        git commit -m "foo bar baz"
+        git commit -m "foo bar baz" -q
 
         ## Handle the case where users didn't make any changes
         if [ $? -eq 1 ]; then
