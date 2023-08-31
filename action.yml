@@ -23,8 +23,8 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        echo ${{ input.git_name }}
-        echo ${{ input.git_email }}
+        echo ${{ inputs.git_name }}
+        echo ${{ inputs.git_email }}
       shell: bash
     # - run: |
     #     ## 🚀🚀🚀
