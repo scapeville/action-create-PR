@@ -7,6 +7,7 @@
 
 ## Usage
 
+<!-- Ref: https://stackoverflow.com/questions/72376229/github-actions-is-not-permitted-to-create-or-approve-pull-requests-createpullre -->
 > **NOTE**
 In order for GitHub Actions to be able to create a pull request, check the checkbox 'Allow GitHub Actions to create and approve pull requests' at https://github.com/OWNER/REPO/settings/actions .
 
