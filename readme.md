@@ -1,6 +1,6 @@
 ## About
 
-💡 Motivation: I want to check out my repo, make some changes (a single commit), and then create a PR for review.
+💡 Motivation: I just want to check out my repo, make some changes (a single commit), and then create a PR for review.
 
 ❓ Purpose: This action handles making a new branch, committing all the changes, and submitting the PR.
 
